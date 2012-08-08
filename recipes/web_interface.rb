@@ -56,8 +56,7 @@ end
 # Perform bundle install on the newly-installed Graylog2 web interface version
 execute "bundle install" do
   cwd "#{node.graylog2.basedir}/web"
-  action :nothing
-  subscribes :run, resources(:link => "#{node.graylog2.basedir}/web"), :immediately
+  command "bundle install"
 end
 
 # Create mongoid.yml
