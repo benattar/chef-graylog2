@@ -8,6 +8,10 @@
 syslog_listen_port = <%= node.graylog2.port %>
 syslog_protocol = udp
 
+# ElasticSearch URL (default: http://localhost:9200/)
+elasticsearch_url = http://<%= node.graylog2.elasticsearch.host %>:<%= node.graylog2.elasticsearch.port %>/
+elasticsearch_index_name = <%= node.graylog2.elasticsearch.index_name %>
+
 # MongoDB Configuration
 mongodb_host = <%= node.graylog2.mongodb.host %>
 mongodb_port = <%= node.graylog2.mongodb.port %>

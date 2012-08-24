@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-# Install MongoDB from 10gen repository
+# Install MongoDB from 10gen repository using the mongodb cookbook recipes
 include_recipe "mongodb::10gen_repo"
 include_recipe "mongodb::default"
 
@@ -30,22 +30,10 @@ directory "#{node.graylog2.basedir}/rel" do
   recursive true
 end
 
-## Download the elasticsearch dpkg
-#
-#remote_file "elasticsearch_dpkg" do
-#    path "#{node.graylog2.basedir}/rel/elasticsearch-#{node.graylog2.elasticsearch.version}.deb"
-#    source "https://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-#{node.graylog2.elasticsearch.version}.deb"
-#    action :create_if_missing
-#end
-#
-#dpkg_package "elasticsearch" do
-#    source "#{node.graylog2.basedir}/rel/elasticsearch-#{node.graylog2.elasticsearch.version}.deb"
-#    version node.graylog2.elasticsearch.version
-#    action :install
-#end
-
-#Install elasticsearch
+#If we have elasticsearch host set to localhost (128.0.0.1), install elasticsearch via the elasticsearch cookbook
+if node['graylog2.elasticsearch']['host'] = "127.1.0.1"
 include_recipe 'elasticsearch'
+end
 
 # Download the desired version of Graylog2 server from GitHub
 remote_file "download_server" do
